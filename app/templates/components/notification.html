@@ -1,0 +1,5 @@
+{% if notification_message %}
+<article class="notice notice-{{ notification_tone | default('muted') }}">
+    {{ notification_message }}
+</article>
+{% endif %}

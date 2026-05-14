@@ -1,0 +1,23 @@
+<section id="recent-posts"{% if oob %} hx-swap-oob="outerHTML"{% endif %}>
+    <h2>Recent posts</h2>
+    <div class="panel">
+        {% if recent_posts %}
+        <ul class="post-list">
+            {% for post in recent_posts %}
+            <li>
+                <div class="post-header">
+                    <strong>{{ post.status|title }}</strong>
+                    <small>{{ post.created_at }}</small>
+                </div>
+                <p>{{ post.content }}</p>
+                {% if post.image_path %}
+                <img src="{{ url_for('static', filename=post.image_path) }}" alt="Uploaded post image" class="post-image">
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="helper-copy">Recent drafts and published posts will appear here.</p>
+        {% endif %}
+    </div>
+</section>

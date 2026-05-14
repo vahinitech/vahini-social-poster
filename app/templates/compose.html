@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Compose · Vahini Social Poster{% endblock %}
+{% block page_title %}Compose a post{% endblock %}
+
+{% block content %}
+<section class="grid compose-grid">
+    <article>
+        <div id="compose-feedback">
+            {% include "components/notification.html" with context %}
+        </div>
+        <form
+            id="compose-form"
+            hx-encoding="multipart/form-data"
+            class="stack-lg"
+        >
+            {% include "components/draft_id_input.html" %}
+
+            <label for="content">Post content</label>
+            <textarea
+                id="content"
+                name="content"
+                rows="8"
+                placeholder="Share product updates, launch notes, or a quick status post..."
+                data-counter-target="#content-counter"
+                hx-post="{{ url_for('compose.autosave_draft') }}"
+                hx-trigger="keyup changed delay:1500ms"
+                hx-target="#compose-feedback"
+                hx-include="#compose-form"
+            ></textarea>
+            <small><span id="content-counter">0</span> characters</small>
+
+            <label for="image">Image upload</label>
+            <input id="image" name="image" type="file" accept="image/*">
+
+            <fieldset>
+                <legend>Publish to</legend>
+                <div class="checkbox-grid">
+                    {% for platform, label in platform_labels.items() %}
+                    <label>
+                        <input type="checkbox" name="platforms" value="{{ platform }}">
+                        {{ label }}
+                    </label>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <div class="button-row">
+                <button
+                    type="button"
+                    class="secondary"
+                    hx-post="{{ url_for('compose.save_draft') }}"
+                    hx-target="#compose-feedback"
+                    hx-include="#compose-form"
+                >
+                    Save draft
+                </button>
+                <button
+                    type="button"
+                    hx-post="{{ url_for('compose.publish_post') }}"
+                    hx-target="#compose-feedback"
+                    hx-include="#compose-form"
+                >
+                    Publish now
+                </button>
+            </div>
+        </form>
+    </article>
+
+    <aside class="panel quick-panel">
+        <h2>Connected destinations</h2>
+        {% include "components/connected_accounts.html" %}
+        <p class="helper-copy">Use Settings to connect OAuth credentials or keep using the built-in placeholder flow while integrating APIs.</p>
+    </aside>
+</section>
+{% endblock %}

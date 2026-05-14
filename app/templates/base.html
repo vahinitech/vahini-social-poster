@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Vahini Social Poster{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+<main class="container app-shell">
+    <nav class="top-nav">
+        <strong>Vahini Social Poster</strong>
+        <ul>
+            <li><a href="{{ url_for('dashboard.home') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('compose.compose_page') }}">Compose</a></li>
+            <li><a href="{{ url_for('settings.settings_page') }}">Settings</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero-card">
+        <div>
+            <p class="eyebrow">Local founder tool</p>
+            <h1>{% block page_title %}Ship posts faster{% endblock %}</h1>
+            <p class="hero-copy">Fast local workflows with Flask, HTMX, SQLite, and reusable social posting services.</p>
+        </div>
+    </section>
+
+    {% block content %}{% endblock %}
+</main>
+<script>
+    document.addEventListener("input", function (event) {
+        const counterTarget = event.target.dataset.counterTarget;
+        if (!counterTarget) {
+            return;
+        }
+        const counter = document.querySelector(counterTarget);
+        if (counter) {
+            counter.textContent = event.target.value.length;
+        }
+    });
+</script>
+</body>
+</html>

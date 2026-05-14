@@ -1,0 +1,21 @@
+{% include "components/notification.html" %}
+<input id="draft-id" name="draft_id" type="hidden" value="{{ draft_id | default('', true) }}" hx-swap-oob="outerHTML">
+{% with oob=True %}
+    {% include "components/recent_posts.html" %}
+{% endwith %}
+<section id="dashboard-stats" hx-swap-oob="outerHTML">
+    <div class="stats-grid">
+        <article class="stat-card">
+            <small>Connected accounts</small>
+            <strong>{{ accounts|length if accounts is defined else 0 }}</strong>
+        </article>
+        <article class="stat-card">
+            <small>Recent posts</small>
+            <strong>{{ recent_posts|length }}</strong>
+        </article>
+        <article class="stat-card">
+            <small>Drafts</small>
+            <strong>{{ draft_count }}</strong>
+        </article>
+    </div>
+</section>
