@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard · Vahini Social Poster{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<section id="dashboard-stats">
+    {% include "components/dashboard_stats.html" %}
+</section>
+
+<div class="grid dashboard-grid">
+    <section>
+        <h2>Connected accounts</h2>
+        <div class="panel">
+            {% include "components/connected_accounts.html" %}
+        </div>
+    </section>
+
+    {% include "components/recent_posts.html" %}
+</div>
+{% endblock %}

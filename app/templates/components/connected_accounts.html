@@ -1,0 +1,12 @@
+{% if accounts %}
+<ul class="account-list">
+    {% for account in accounts %}
+    <li>
+        <strong>{{ platform_labels[account.platform] }}</strong>
+        <small>Connected {{ account.created_at }}</small>
+    </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="helper-copy">No accounts connected yet. Visit Settings to add one.</p>
+{% endif %}

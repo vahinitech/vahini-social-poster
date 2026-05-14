@@ -1,0 +1,31 @@
+<div class="panel stack-lg">
+    {% for platform, label in platform_labels.items() %}
+    {% set is_connected = accounts | selectattr('platform', 'equalto', platform) | list | length > 0 %}
+    <article class="account-card">
+        <div>
+            <strong>{{ label }}</strong>
+            <p class="helper-copy">{{ 'Connected and ready for placeholder posting.' if is_connected else 'Not connected yet.' }}</p>
+        </div>
+        {% if is_connected %}
+        <button
+            type="button"
+            class="secondary outline"
+            hx-post="{{ url_for('settings.disconnect_account', platform=platform) }}"
+            hx-target="#accounts-panel"
+            hx-swap="outerHTML"
+        >
+            Disconnect
+        </button>
+        {% else %}
+        <button
+            type="button"
+            hx-post="{{ url_for('settings.connect_account', platform=platform) }}"
+            hx-target="#accounts-panel"
+            hx-swap="outerHTML"
+        >
+            Connect
+        </button>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
